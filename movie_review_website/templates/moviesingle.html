@@ -1,0 +1,348 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/html">
+
+<!-- moviesingle07:38-->
+<head>
+	<!-- Basic need -->
+	<title>Open Pediatrics</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<link rel="profile" href="#">
+
+    <!--Google Font-->
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+	<!-- Mobile specific meta -->
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone-no">
+
+	<!-- CSS files -->
+	<link rel="stylesheet" href="{% static 'css/plugins.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+<!--preloading-->
+<div id="preloader">
+    <a  href="{% url 'home' %}"><img class="logo" src="{% static 'images/logo1.png' %}" alt="" width="119" height="58"></a>
+    <div id="status">
+        <span></span>
+        <span></span>
+    </div>
+</div>
+<!--end of preloading-->
+<!-- BEGIN | Header -->
+<header class="ht-header">
+	<div class="container">
+		<nav class="navbar navbar-default navbar-custom">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header logo">
+				    <div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					    <span class="sr-only">Toggle navigation</span>
+					    <div id="nav-icon1">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+				    </div>
+				    <a href="{% url 'home' %}"><img class="logo" src="{% static 'images/logo1.png' %}" alt="" width="119" height="58"></a>
+			    </div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav flex-child-menu menu-left">
+						<li><a href="{% url 'home' %}">Home</a></li>
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
+							Movie <i class="fa fa-angle-down" aria-hidden="true"></i>
+							</a>
+							<ul class="dropdown-menu level1">
+								<li><a href="{% url 'movie_grid_fw' %}">Movie</a></li>
+								<li><a href="{% url 'add_movie' %}">Add Movie</a></li>
+							</ul>
+						</li>
+						<li><a href="{% url 'user_profile' %}">user profile</a></li>
+					</ul>
+					<ul class="nav navbar-nav flex-child-menu menu-right">
+						{% if user.is_authenticated %}
+							<li>Hello, {{user.username}}</li>
+							<li><a href="{% url 'logout' %}">Logout</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			<!-- /.navbar-collapse -->
+	    </nav>
+	</div>
+</header>
+<!-- END | Header -->
+
+<div class="hero mv-single-hero">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+			</div>
+		</div>
+	</div>
+</div>
+<div class="page-single movie-single movie_single">
+	<div class="container">
+		<div class="row ipad-width2">
+			<div class="col-md-4 col-sm-12 col-xs-12">
+				<div class="movie-img sticky-sb">
+					<img src="{{movie.poster.url}}" alt="">
+					<div class="movie-btn">
+						<div class="btn-transform transform-vertical red">
+							<div><a href="#" class="item item-1 yellowbtn"> <i class="ion-play"></i> Watch Trailer</a></div>
+							<div><a href="{{movie.movie_link}}" class="item item-2 yellowbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
+						</div>
+						<div class="btn-transform transform-vertical red">
+							<div><a href="#" class="item item-1 yellowbtn"></i> Edit Movie</a></div>
+							<div><a href="{% url 'edit_movie' id %}" class="item item-2 yellowbtn fancybox-media hvr-grow"></a></div>
+						</div>
+						<div class="btn-transform transform-vertical">
+							<div><a href="#" class="item item-1 redbtn"> Delete Movie</a></div>
+							<div><a href="{% url 'delete_movie' id %}" class="item item-2 redbtn"></a></div>
+						</div>
+
+
+					</div>
+
+				</div>
+
+			</div>
+			<div class="col-md-8 col-sm-12 col-xs-12">
+				<div class="movie-single-ct main-content">
+					<h1 class="bd-hd">{{movie.title}}<span>{{movie.release_date}}</span></h1>
+					<form method="post" action="#">
+						<div class="social-btn">
+							<a href=" {% url 'fav_movie' movie.id %}"  class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
+						</div>
+					</form>
+					<div class="movie-rate">
+						<div class="rate">
+							<i class="ion-android-star"></i>
+							<p><span>8.1</span> /10<br>
+								<span class="rv">56 Reviews</span>
+							</p>
+						</div>
+						<div class="rate-star">
+							<p>Rate This Movie:  </p>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star-outline"></i>
+						</div>
+					</div>
+					<div class="movie-tabs">
+						<div class="tabs">
+							<ul class="tab-links tabs-mv">
+								<li class="active"><a href="#overview">Overview</a></li>
+								<li><a href="#reviews"> Reviews</a></li>
+								<li><a href="#add_reviews"> Add Reviews</a></li>
+							</ul>
+						    <div class="tab-content">
+						        <div id="overview" class="tab active">
+						            <div class="row">
+						            	<div class="col-md-8 col-sm-12 col-xs-12">
+						            		<p>{{movie.desc}}</p>
+						            	</div>
+						            	<div class="col-md-4 col-xs-12 col-sm-12">
+						            		<div class="sb-it">
+						            			<h6>Director: </h6>
+						            			<p><a href="#">{{movie.director}}</a></p>
+						            		</div>
+						            		<div class="sb-it">
+						            			<h6>Writer: </h6>
+						            			<p><a href="#">{{movie.writer}}</a> <a href="#">Stan Lee</a></p>
+						            		</div>
+						            		<div class="sb-it">
+						            			<h6>Stars: </h6>
+						            			<p><a href="#">{{movie.actor}}</a></p>
+						            		</div>
+						            		<div class="sb-it">
+						            			<h6>Genres:</h6>
+						            			<p><a href="#">{{movie.category}}</a></p>
+						            		</div>
+						            		<div class="sb-it">
+						            			<h6>Release Date:</h6>
+						            			<p>{{movie.release_date}}</p>
+						            		</div>
+						            	</div>
+						            </div>
+						        </div>
+						        <div id="reviews" class="tab review">
+						           <div class="row">
+						            	<div class="rv-hd">
+						            		<div class="div">
+							            		<h3>Related Movies To</h3>
+						       	 				<h2>{{movie.title}}</h2>
+							            	</div>
+										</div>
+						            	<div class="topbar-filter">
+											<label>Filter by:</label>
+											<select>
+												<option value="popularity">Popularity Descending</option>
+												<option value="popularity">Popularity Ascending</option>
+												<option value="rating">Rating Descending</option>
+												<option value="rating">Rating Ascending</option>
+												<option value="date">Release date Descending</option>
+												<option value="date">Release date Ascending</option>
+											</select>
+										</div>
+									   {% for i in review_obj %}
+									   {% if movie.title == i.movie %}
+										<div class="mv-user-review-item">
+											<div class="user-infor">
+												<div>
+													<div class="no-star">
+														<i class="ion-android-star"></i>
+														<i class="ion-android-star"></i>
+														<i class="ion-android-star"></i>
+														<i class="ion-android-star"></i>
+														<i class="ion-android-star"></i>
+														<i class="ion-android-star"></i>
+														<i class="ion-android-star"></i>
+														<i class="ion-android-star"></i>
+														<i class="ion-android-star"></i>
+														<i class="ion-android-star last"></i>
+													</div>
+													<p class="time">
+														{{i.date}} <a href="#"> {{i.username}}</a>
+													</p>
+												</div>
+											</div>
+											<p>{{i.review}}</p>
+										</div>
+									   {% endif %}
+									   {% endfor %}
+										<div class="mx_auto">
+											{% if products.paginator.num_pages > 1 %}
+											<hr>
+												<div class="text-center">
+													{% for pg in products.paginator.page_range %}
+														<a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %} active {% endif %}">{{pg}}</a>
+													{% endfor %}
+												</div>
+											{% endif %}
+										</div>
+						            </div>
+						        </div>
+								<div id="add_reviews" class="tab review">
+						           <div class="row">
+						            	<div class="rv-hd">
+						            		<div class="div">
+							            		<h3>Related Movies To</h3>
+						       	 				<h2>{{movie.title}}</h2>
+							            	</div>
+						            	</div>
+
+									    <div class="form-style-1 user-pro" action="#">
+											<form action="{% url 'movie_single' movie.id %}" method='post' class="user">
+												{% csrf_token %}
+												<div class="row">
+													<div class="col-md-6 form-it">
+														<label>Username</label>
+														<input type="text" name="review_username">
+													</div>
+													<div class="col-md-6 form-it">
+														<label>Movie</label>
+														<input type="text" name="review_movie">
+													</div>
+
+												</div>
+												<div class="row">
+													<div class="col-md-6 form-it">
+														<label>Review</label>
+														<input type="text" name="review">
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-2">
+														<input class="submit" type="submit" value="add review">
+													</div>
+												</div>
+											</form>
+										</div>
+						            </div>
+						        </div>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- footer section-->
+<footer class="ht-footer full-width-ft">
+	<div class="row">
+		<div class="flex-parent-ft">
+			<div class="flex-child-ft item1">
+				 <a href="{% url 'home' %}"><img class="logo" src="{% static 'images/logo1.png' %}" alt=""></a>
+				 <p>5th Avenue st, manhattan<br>
+				New York, NY 10001</p>
+				<p>Call us: <a href="#">(+01) 202 342 6789</a></p>
+			</div>
+			<div class="flex-child-ft item2">
+				<h4>Resources</h4>
+				<ul>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Blockbuster</a></li>
+					<li><a href="#">Contact Us</a></li>
+					<li><a href="#">Forums</a></li>
+					<li><a href="#">Blog</a></li>
+					<li><a href="#">Help Center</a></li>
+				</ul>
+			</div>
+			<div class="flex-child-ft item3">
+				<h4>Legal</h4>
+				<ul>
+					<li><a href="#">Terms of Use</a></li>
+					<li><a href="#">Privacy Policy</a></li>
+					<li><a href="#">Security</a></li>
+				</ul>
+			</div>
+			<div class="flex-child-ft item4">
+				<h4>Account</h4>
+				<ul>
+					<li><a href="#">My Account</a></li>
+					<li><a href="#">Watchlist</a></li>
+					<li><a href="#">Collections</a></li>
+					<li><a href="#">User Guide</a></li>
+				</ul>
+			</div>
+			<div class="flex-child-ft item5">
+				<h4>Newsletter</h4>
+				<p>Subscribe to our newsletter system now <br> to get latest news from us.</p>
+				<form action="#">
+					<input type="text" placeholder="Enter your email">
+				</form>
+				<a href="#" class="btn">Subscribe now <i class="ion-ios-arrow-forward"></i></a>
+			</div>
+		</div>
+	</div>
+</footer>
+<!-- end of footer section-->
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/plugins2.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+</body>
+
+<!-- moviesingle11:03-->
+</html>

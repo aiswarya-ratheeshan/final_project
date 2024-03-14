@@ -1,0 +1,226 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en" class="no-js">
+
+<!-- userprofile14:04-->
+<head>
+	<!-- Basic need -->
+	<title>Open Pediatrics</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<link rel="profile" href="#">
+
+    <!--Google Font-->
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+	<!-- Mobile specific meta -->
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone-no">
+
+	<!-- CSS files -->
+	<link rel="stylesheet" href="{% static 'css/plugins.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+</head>
+<body>
+<!--preloading-->
+<div id="preloader">
+    <a  href="{% url 'home' %}"><img class="logo" src="{% static 'images/logo1.png' %}" alt="" width="119" height="58"></a>
+    <div id="status">
+        <span></span>
+        <span></span>
+    </div>
+</div>
+<!--end of preloading-->
+<!-- BEGIN | Header -->
+<header class="ht-header">
+	<div class="container">
+		<nav class="navbar navbar-default navbar-custom">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header logo">
+				    <div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					    <span class="sr-only">Toggle navigation</span>
+					    <div id="nav-icon1">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+				    </div>
+				    <a href="{% url 'home' %}"><img class="logo" src="{% static 'images/logo1.png' %}" alt="" width="119" height="58"></a>
+			    </div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav flex-child-menu menu-left">
+						<li><a href="{% url 'home' %}">Home</a></li>
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
+							Movie <i class="fa fa-angle-down" aria-hidden="true"></i>
+							</a>
+							<ul class="dropdown-menu level1">
+								<li><a href="{% url 'movie_grid_fw' %}">Movie</a></li>
+								<li><a href="{% url 'add_movie' %}">Add Movie</a></li>
+							</ul>
+						</li>
+						<li><a href="{% url 'user_profile' %}">user profile</a></li>
+					</ul>
+					<ul class="nav navbar-nav flex-child-menu menu-right">
+						{% if user.is_authenticated %}
+							<li>Hello, {{user.username}}</li>
+							<li><a href="{% url 'logout' %}">Logout</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			<!-- /.navbar-collapse -->
+	    </nav>
+	</div>
+</header>
+<!-- END | Header -->
+
+<div class="hero user-hero">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hero-ct">
+					<h1>{{user.username}}</h1>
+					<ul class="breadcumb">
+						<li class="active"><a href="{% url 'home' %}">Home</a></li>
+						<li> <span class="ion-ios-arrow-right"></span>Profile</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="page-single">
+	<div class="container">
+		<div class="row ipad-width">
+			<div class="col-md-3 col-sm-12 col-xs-12">
+				<div class="user-information">
+					<div class="user-fav">
+						<p>Account Details</p>
+						<ul>
+							<li  class="active"><a href="{% url 'user_profile' %}">Profile</a></li>
+							<li><a href="{% url 'user_favorite_grid' %}">Favorite movies</a></li>
+							<li><a href="{% url 'user_rate' %}">Rated movies</a></li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+			<div class="col-md-9 col-sm-12 col-xs-12">
+				<div class="form-style-1 user-pro" action="#">
+					<form action="{% url 'update' %}" method='post' class="user">
+						{% csrf_token %}
+						<h4>01. Profile details</h4>
+						<div class="row">
+							<div class="col-md-6 form-it">
+								<label>Username</label>
+								<input type="text" name="update_username" value="{{user.username}}" >
+							</div>
+							<div class="col-md-6 form-it">
+								<label>Email Address</label>
+								<input type="text" name="update_email" value="{{user.email}}">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-it">
+								<label>First Name</label>
+								<input type="text" name="update_firstname" value="{{user.first_name}}">
+							</div>
+							<div class="col-md-6 form-it">
+								<label>Last Name</label>
+								<input type="text" name="update_lastname" value="{{user.last_name}}">
+							</div>
+						</div>
+						<h4>02. Change password</h4>
+						<div class="row">
+							<div class="col-md-6 form-it">
+								<label>New Password</label>
+								<input type="password" name="newpass">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-it">
+								<label>Confirm New Password</label>
+								<input type="password" name="cnewpass">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-2">
+								<input class="submit" type="submit" value="change">
+							</div>
+						</div>	
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- footer section-->
+<footer class="ht-footer">
+	<div class="container">
+		<div class="flex-parent-ft">
+			<div class="flex-child-ft item1">
+				 <a href="{% url 'home' %}"><img class="logo" src="{% static 'images/logo1.png' %}" alt=""></a>
+				 <p>5th Avenue st, manhattan<br>
+				New York, NY 10001</p>
+				<p>Call us: <a href="#">(+01) 202 342 6789</a></p>
+			</div>
+			<div class="flex-child-ft item2">
+				<h4>Resources</h4>
+				<ul>
+					<li><a href="#">About</a></li> 
+					<li><a href="#">Blockbuster</a></li>
+					<li><a href="#">Contact Us</a></li>
+					<li><a href="#">Forums</a></li>
+					<li><a href="#">Blog</a></li>
+					<li><a href="#">Help Center</a></li>
+				</ul>
+			</div>
+			<div class="flex-child-ft item3">
+				<h4>Legal</h4>
+				<ul>
+					<li><a href="#">Terms of Use</a></li> 
+					<li><a href="#">Privacy Policy</a></li>	
+					<li><a href="#">Security</a></li>
+				</ul>
+			</div>
+			<div class="flex-child-ft item4">
+				<h4>Account</h4>
+				<ul>
+					<li><a href="#">My Account</a></li> 
+					<li><a href="#">Watchlist</a></li>	
+					<li><a href="#">Collections</a></li>
+					<li><a href="#">User Guide</a></li>
+				</ul>
+			</div>
+			<div class="flex-child-ft item5">
+				<h4>Newsletter</h4>
+				<p>Subscribe to our newsletter system now <br> to get latest news from us.</p>
+				<form action="#">
+					<input type="text" placeholder="Enter your email...">
+				</form>
+				<a href="#" class="btn">Subscribe now <i class="ion-ios-arrow-forward"></i></a>
+			</div>
+		</div>
+	</div>
+</footer>
+<!-- end of footer section-->
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/plugins2.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+</body>
+
+<!-- userprofile14:04-->
+</html>
